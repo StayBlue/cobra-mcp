@@ -55,6 +55,5 @@ Z3-backed verification (`cobra-cli --verify`) is not built in yet.
 
 ## License
 
-The binary statically links CoBRA, Abseil and Highway, which are licensed
-under Apache-2.0 (Highway is dual-licensed Apache-2.0/BSD-3-Clause).
-Distributed binaries must carry their license notices.
+cobra-mcp is licensed under the [MIT License](LICENSE). Third-party license
+notices are included in release archives under `licenses/`.

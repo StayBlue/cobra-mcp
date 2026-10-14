@@ -1,3 +1,6 @@
+// Copyright (c) 2026 StayBlue
+// SPDX-License-Identifier: MIT
+
 //! Safe wrapper around the C++ bridge to CoBRA.
 
 use rmcp::schemars::{self, JsonSchema};

@@ -1,3 +1,6 @@
+// Copyright (c) 2026 StayBlue
+// SPDX-License-Identifier: MIT
+
 //! Runs each simplification in a child copy of this executable, so a call
 //! that runs too long can be killed and a crash in CoBRA cannot take down the
 //! server. The parent writes a JSON `Request` to the worker's stdin and reads

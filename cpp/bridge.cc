@@ -1,3 +1,6 @@
+// Copyright (c) 2026 StayBlue
+// SPDX-License-Identifier: MIT
+
 // Runs one simplification the way cobra-cli does (see
 // vendor/CoBRA/tools/cobra-cli/main.cpp), returning the result as data
 // instead of printing it.

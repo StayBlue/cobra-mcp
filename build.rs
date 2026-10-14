@@ -1,3 +1,6 @@
+// Copyright (c) 2026 StayBlue
+// SPDX-License-Identifier: MIT
+
 //! Builds CoBRA and its dependencies with CMake, compiles the C++ side of the
 //! cxx bridge, and links everything statically into the cobra-mcp binary.
 

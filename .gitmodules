@@ -1,0 +1,3 @@
+[submodule "vendor/CoBRA"]
+	path = vendor/CoBRA
+	url = https://github.com/trailofbits/CoBRA.git

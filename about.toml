@@ -1,0 +1,19 @@
+# Configuration for cargo-about, which collects the licenses of the Rust
+# crates cobra-mcp is built from for the release archives.
+accepted = [
+    "Apache-2.0",
+    "MIT",
+    "Unicode-3.0",
+    "Unlicense",
+    "Zlib",
+]
+targets = [
+    "x86_64-unknown-linux-gnu",
+    "aarch64-unknown-linux-gnu",
+    "x86_64-apple-darwin",
+    "aarch64-apple-darwin",
+    "x86_64-pc-windows-msvc",
+]
+ignore-build-dependencies = true
+ignore-dev-dependencies = true
+private = { ignore = true }

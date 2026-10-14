@@ -19,7 +19,29 @@ env:
   CMAKE_GENERATOR: Ninja
 
 jobs:
+  licenses:
+    name: Rust licenses
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - uses: taiki-e/install-action@83ac0ad63c0167e6f06796fab0fce28db1bf3db0 # v2.87.22
+        with:
+          tool: cargo-about@0.9.2
+
+      - name: Generate
+        run: cargo about generate --locked --fail about.hbs -o rust-crates-LICENSES.txt
+
+      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: rust-licenses
+          path: rust-crates-LICENSES.txt
+          if-no-files-found: error
+
   build:
+    needs: licenses
     strategy:
       fail-fast: false
       matrix:
@@ -104,6 +126,10 @@ jobs:
             | "$bin" | tee response.jsonl
           grep -q '"expr":"x + y"' response.jsonl
 
+      - uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
+        with:
+          name: rust-licenses
+
       - name: Package
         run: |
           if [[ "$GITHUB_REF" == refs/tags/* ]]; then
@@ -114,6 +140,8 @@ jobs:
           name=cobra-mcp-$version-${{ matrix.target }}
           mkdir -p "$name/licenses" dist
 
+          cp LICENSE "$name/"
+          cp rust-crates-LICENSES.txt "$name/licenses/"
           # Abseil and Highway are fetched by CoBRA's dependency build.
           src=$(find target/release/build -path '*/out/deps/build' -type d | head -1)
           cp vendor/CoBRA/LICENSE "$name/licenses/CoBRA-LICENSE"
@@ -132,7 +160,7 @@ jobs:
 
       - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
-          name: ${{ matrix.target }}
+          name: dist-${{ matrix.target }}
           path: dist/*
           if-no-files-found: error
 
@@ -158,6 +186,7 @@ jobs:
       - uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
         with:
           path: dist
+          pattern: dist-*
           merge-multiple: true
 
       - name: Publish release
